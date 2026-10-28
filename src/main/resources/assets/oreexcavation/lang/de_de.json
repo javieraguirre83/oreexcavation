@@ -1,4 +1,5 @@
 {
   "oreexcavation.key.excavate": "Ausheben",
-  "oreexcavation.key.shape": "Form umschalten/bearbeiten (Strg)"
+  "oreexcavation.key.shape": "Form umschalten/bearbeiten (Strg)",
+  "key.category.oreexcavation.keys": "OreExcavation"
 }

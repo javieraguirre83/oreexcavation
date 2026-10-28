@@ -2,11 +2,11 @@
   "oreexcavation.key.excavate": "Utgrävning",
   "oreexcavation.key.shape_toggle": "Växla Form",
   "oreexcavation.key.shape_edit": "Redigera Form",
-
   "oreexcavation.undo.success": "Upphäver senaste utgrävningen....",
   "oreexcavation.undo.failed.xp": "Upphävningen Misslyckades: Kunde inte återbetala XP",
   "oreexcavation.undo.failed.items": "Upphävningen Misslyckades: Kunde inte återbetala föremål",
   "oreexcavation.undo.failed.obstructed": "Upphävningen Misslyckades: Området är hindrat",
   "oreexcavation.undo.failed.no_history": "Upphävningen Misslyckades: Inget att upphäva",
-  "oreexcavation.undo.failed.disabled": "Upphävning är inaktiverat!"
+  "oreexcavation.undo.failed.disabled": "Upphävning är inaktiverat!",
+  "key.category.oreexcavation.keys": "OreExcavation"
 }
