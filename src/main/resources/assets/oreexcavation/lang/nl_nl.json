@@ -1,0 +1,12 @@
+{
+  "oreexcavation.key.excavate": "Graaf",
+  "oreexcavation.key.shape_toggle": "Vorm schakelen",
+  "oreexcavation.key.shape_edit": "Vorm bewerken",
+  "oreexcavation.undo.success": "Laatste opgraving ongedaan maken...",
+  "oreexcavation.undo.failed.xp": "Ongedaan maken mislukt: kan XP niet teruggeven",
+  "oreexcavation.undo.failed.items": "Ongedaan maken mislukt: kan items niet teruggeven",
+  "oreexcavation.undo.failed.obstructed": "Ongedaan maken mislukt: gebied geblokkeerd",
+  "oreexcavation.undo.failed.no_history": "Ongedaan maken mislukt: niets om ongedaan te maken",
+  "oreexcavation.undo.failed.disabled": "Ongedaan maken is uitgeschakeld!",
+  "key.category.oreexcavation.keys": "OreExcavation"
+}

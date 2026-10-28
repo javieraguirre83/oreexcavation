@@ -36,6 +36,7 @@ if [ -d "$REPO/src/main" ]; then
   rm -rf "$MDK/src/main/java/com/example"
   cp -r "$REPO/src/." "$MDK/src/"
   sed -i -E "s/^version = .*/version = '1.13.174-forge-26.2'/; s/^group = .*/group = 'oreexcavation'/; s/examplemod/oreexcavation/g" "$MDK/build.gradle"
+  printf "\ntasks.withType(JavaCompile).configureEach { options.compilerArgs += ['-Xmaxerrs', '1000'] }\n" >> "$MDK/build.gradle"
   sed -i -E "s/^rootProject.name = .*/rootProject.name = 'OreExcavation'/" "$MDK/settings.gradle"
   if [ -f "$REPO/mod.properties" ]; then
     while IFS='=' read -r k v; do
@@ -58,7 +59,7 @@ grep -E -A3 "error:|FAILED|BUILD|What went wrong" "$REG/build.txt" | head -400 >
 # Firmas reales de las clases de Minecraft/Forge 26.2 (para escribir el código correcto)
 if [ -f "$REPO/.github/scripts/clases.txt" ]; then
   JARS=$(find ~/.gradle "$MDK" /tmp -name '*.jar' 2>/dev/null | while read -r j; do
-    unzip -l "$j" 2>/dev/null | grep -qE 'net/minecraft/world/item/Item.class|net/minecraftforge/event/entity/player/PlayerEvent.class|net/minecraft/client/Minecraft.class' && echo "$j"; done | sort -u)
+    unzip -l "$j" 2>/dev/null | grep -qE 'net/minecraft/world/item/Item.class|net/minecraftforge/event/entity/player/PlayerEvent.class|net/minecraft/client/Minecraft.class|net/minecraftforge/eventbus/api/bus/EventBus.class|net/minecraftforge/fml/javafmlmod/FMLJavaModLoadingContext.class|net/minecraftforge/fml/loading/FMLEnvironment.class' && echo "$j"; done | sort -u)
   echo "$JARS" > "$REG/jars.txt"
   CP=$(echo "$JARS" | tr '\n' ':')
   : > "$REG/api.txt"

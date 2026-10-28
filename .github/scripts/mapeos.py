@@ -5,7 +5,8 @@ OUT = sys.argv[1]
 VER = "1.20.1"
 
 def get(url):
-    with urllib.request.urlopen(url) as r:
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (OreExcavation port build)"})
+    with urllib.request.urlopen(req) as r:
         return r.read()
 
 # Mojang official mappings (official -> obf)
@@ -15,8 +16,12 @@ vjson = json.loads(get(vurl))
 moj = get(vjson["downloads"]["client_mappings"]["url"]).decode()
 
 # MCP config (obf -> srg)
-meta = get("https://maven.minecraftforge.net/de/oceanlabs/mcp/mcp_config/maven-metadata.xml").decode()
-mcp_ver = [v for v in re.findall(r"<version>([^<]+)</version>", meta) if v.startswith(VER + "-")][-1]
+try:
+    meta = get("https://maven.minecraftforge.net/de/oceanlabs/mcp/mcp_config/maven-metadata.xml").decode()
+    mcp_ver = [v for v in re.findall(r"<version>([^<]+)</version>", meta) if v.startswith(VER + "-")][-1]
+except Exception as e:
+    print("metadata failed", e)
+    mcp_ver = "1.20.1-20230612.114412"
 z = zipfile.ZipFile(io.BytesIO(get(f"https://maven.minecraftforge.net/de/oceanlabs/mcp/mcp_config/{mcp_ver}/mcp_config-{mcp_ver}.zip")))
 tsrg = z.read("config/joined.tsrg").decode()
 

@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[65,)"
+license="All Rights Reserved"
+
+[[mods]]
+    modId="oreexcavation"
+    version="1.13.174"
+    displayName="OreExcavation"
+    displayURL="https://www.curseforge.com/minecraft/mc-mods/ore-excavation"
+    logoFile="title.png"
+    authors="Funwayguy, Darkosto"
+    description="Allows players to mine whole veins of ore, cut down entire trees in one go. Simple and easy to understand configs provided for mod pack developers"
+
+    [[dependencies.oreexcavation]]
+        modId="forge"
+        mandatory=true
+        versionRange="[65,)"
+        ordering="NONE"
+        side="BOTH"
+
+    [[dependencies.oreexcavation]]
+        modId="minecraft"
+        mandatory=true
+        versionRange="[26.2,26.3)"
+        ordering="NONE"
+        side="BOTH"
