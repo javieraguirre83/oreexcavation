@@ -1,0 +1,4 @@
+total 240
+drwxr-xr-x 2 runner runner   4096 Oct 28 01:55 .
+drwxr-xr-x 8 runner runner   4096 Oct 28 01:55 ..
+-rw-r--r-- 1 runner runner 237433 Oct 28 01:55 OreExcavation-1.13.174-forge-26.2.jar
