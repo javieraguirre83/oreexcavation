@@ -2,7 +2,6 @@ package oreexcavation.core;
 
 import net.minecraft.resources.Identifier;
 import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
@@ -59,6 +58,7 @@ public class OreExcavation {
     }
 
     private void setup(FMLCommonSetupEvent event) {
-        ExcavationSettings.gamestagesInstalled = ModList.get().isLoaded("gamestages");
+        // GameStages does not exist for 26.2, so its integration stays off
+        ExcavationSettings.gamestagesInstalled = false;
     }
 }
