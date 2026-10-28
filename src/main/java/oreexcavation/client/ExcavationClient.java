@@ -96,7 +96,7 @@ public class ExcavationClient {
             active = false;
         } else if (ExcavationSettings.mineMode == 0) {
             if (!excavateKey.isDown()) active = false;
-        } else if (ExcavationSettings.mineMode == 1 && !mc.player.isShiftKeyDown()) {
+        } else if (ExcavationSettings.mineMode == 1 && !mc.player.isCrouching()) {
             active = false;
         }
         if (!active) {
@@ -111,7 +111,7 @@ public class ExcavationClient {
     public static boolean isActivated(LocalPlayer player) {
         if (ExcavationSettings.mineMode < 0) return false;
         if (ExcavationSettings.mineMode == 0 && (excavateKey.isUnbound() || !excavateKey.isDown())) return false;
-        return ExcavationSettings.mineMode != 1 || player.isShiftKeyDown();
+        return ExcavationSettings.mineMode != 1 || player.isCrouching();
     }
 
     /** The server tells us a block was broken; if we want to excavate, answer with our shape and direction. */

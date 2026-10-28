@@ -190,7 +190,7 @@ public class MiningAgent {
 
     public void appendBlock(BlockPos pos) {
         if (pos == null || checkedBlocks.contains(pos) || scheduled.contains(pos)) return;
-        if (origin.distSqr(pos) > toolProps.getRange() * toolProps.getRange()) return;
+        if (origin.distToCenterSqr(pos.getX(), pos.getY(), pos.getZ()) > toolProps.getRange() * toolProps.getRange()) return;
         if (!player.level().getWorldBorder().isWithinBounds(pos) || !canDestroy(player, pos)) return;
         if (shape == null || shape.isValid(origin, pos, side, facing)) {
             scheduled.add(pos);
@@ -214,7 +214,7 @@ public class MiningAgent {
         EventHandler.captureAgent = null;
         history.setRecievedStacks(drops);
         history.setRecievedXP(experience);
-        BlockPos at = ExcavationSettings.autoPickup ? player.blockPosition() : origin;
+        BlockPos at = ExcavationSettings.autoPickup ? player.getOnPos() : origin;
         ServerLevel level = player.level();
         drops.forEach(big -> big.getCombinedStacks().forEach(stack ->
                 level.addFreshEntity(new ItemEntity(level, at.getX() + 0.5, at.getY() + 0.5, at.getZ() + 0.5, stack))));

@@ -8,7 +8,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.IForgeShearable;
 import oreexcavation.core.ExcavationSettings;
 
 public class ToolEffectiveCheck {
@@ -20,7 +19,7 @@ public class ToolEffectiveCheck {
             return player.isCreative() || player.hasCorrectToolForDrops(state);
         }
 
-        boolean shears = !held.isEmpty() && held.getItem() instanceof ShearsItem && state.getBlock() instanceof IForgeShearable;
+        boolean shears = !held.isEmpty() && held.getItem() instanceof ShearsItem && held.getDestroySpeed(state) > 1.0F;
 
         if (ExcavationSettings.toolClass) {
             if (held.isEmpty()) return false;

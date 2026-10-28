@@ -219,7 +219,7 @@ public class ExcavateShape {
         BlockHitResult hit;
         try {
             double dist = Math.sqrt(player.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5));
-            VoxelShape shape = state.getShape(player.level(), pos);
+            VoxelShape shape = state.getCollisionShape(player.level(), pos);
             Vec3 start = player.getEyePosition(1.0F);
             Vec3 end = start.add(player.getLookAngle().scale(dist + 1.0));
             shape = shape.move(pos.getX(), pos.getY(), pos.getZ());
