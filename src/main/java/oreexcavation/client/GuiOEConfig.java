@@ -105,7 +105,7 @@ public class GuiOEConfig extends OptionsSubScreen {
         int steps = Mth.ceil((max - min) / step);
         return new OptionInstance<>(key, OptionInstance.noTooltip(),
                 (caption, v) -> Component.translatable(key, String.format("%.0f", min + v * step)),
-                new OptionInstance.IntRange(0, steps).xmap(i -> (double) i, Double::intValue, false),
+                new OptionInstance.IntRange(0, steps).xmap(i -> (double) i, Double::intValue),
                 Codec.doubleRange(min, max),
                 (value - min) / step,
                 v -> onChange.accept(min + v * step));

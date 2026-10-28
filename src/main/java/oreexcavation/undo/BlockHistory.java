@@ -7,7 +7,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.TagValueInput;
-import net.minecraftforge.common.util.BlockSnapshot;
 import oreexcavation.core.OreExcavation;
 
 public class BlockHistory {
@@ -18,30 +17,6 @@ public class BlockHistory {
     public BlockHistory(BlockPos pos, BlockState state, CompoundTag tileData) {
         this.pos = pos;
         this.state = state;
-        this.tileData = tileData;
-    }
-
-    public BlockHistory(BlockSnapshot snapshot) {
-        this.pos = snapshot.getPos();
-        this.state = snapshot.getReplacedBlock();
-        BlockEntity be = snapshot.getBlockEntity();
-        if (be == null) {
-            this.tileData = null;
-        } else {
-            CompoundTag tag;
-            try {
-                tag = saveBlockEntity(be);
-            } catch (Exception e) {
-                OreExcavation.logger.error("Unable to save undo state for tile entity: " + be, e);
-                tag = new CompoundTag();
-            }
-            this.tileData = tag;
-        }
-    }
-
-    public BlockHistory(BlockSnapshot snapshot, CompoundTag tileData) {
-        this.pos = snapshot.getPos();
-        this.state = snapshot.getReplacedBlock();
         this.tileData = tileData;
     }
 

@@ -41,7 +41,7 @@ public class ExcavationClient {
             event.register(shapeEdit);
         });
         InputEvent.Key.BUS.addListener(ExcavationClient::onKeyEvent);
-        InputEvent.MouseScrollingEvent.BUS.addListener(ExcavationClient::onScrollEvent);
+        InputEvent.MouseScrollingEvent.BUS.addListener((java.util.function.Predicate<InputEvent.MouseScrollingEvent>) ExcavationClient::onScrollEvent);
         TickEvent.ClientTickEvent.Post.BUS.addListener(event -> onClientTick());
         RenderHighlightEvent.Block.BUS.addListener(ShapeOverlay::renderOverlay);
         context.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,

@@ -16,7 +16,7 @@ public class ToolEffectiveCheck {
         ItemStack held = player.getItemInHand(InteractionHand.MAIN_HAND);
 
         if (ExcavationSettings.openHand && held.isEmpty()) {
-            return player.isCreative() || player.hasCorrectToolForDrops(state);
+            return player.isCreative() || state.canHarvestBlock(level, pos, player);
         }
 
         boolean shears = !held.isEmpty() && held.getItem() instanceof ShearsItem && held.getDestroySpeed(state) > 1.0F;
@@ -29,6 +29,6 @@ public class ToolEffectiveCheck {
         } else if (ExcavationSettings.altTools && !held.isEmpty() && held.getDestroySpeed(state) > 1.0F) {
             return true;
         }
-        return shears || player.hasCorrectToolForDrops(state);
+        return shears || state.canHarvestBlock(level, pos, player);
     }
 }

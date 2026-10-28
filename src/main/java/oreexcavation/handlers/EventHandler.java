@@ -36,7 +36,7 @@ public class EventHandler {
     public static boolean isExcavating = false;
 
     public static void register() {
-        EntityJoinLevelEvent.BUS.addListener(Priority.LOWEST, EventHandler::onEntitySpawn);
+        EntityJoinLevelEvent.BUS.addListener(Priority.LOWEST, (java.util.function.Predicate<EntityJoinLevelEvent>) EventHandler::onEntitySpawn);
         BlockEvent.BreakEvent.BUS.addListener(Priority.LOWEST, EventHandler::onBlockBreak);
         TickEvent.ServerTickEvent.Post.BUS.addListener(EventHandler::onTick);
         LevelEvent.Unload.BUS.addListener(EventHandler::onWorldUnload);

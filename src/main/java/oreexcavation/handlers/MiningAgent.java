@@ -15,10 +15,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
-import net.minecraftforge.common.util.BlockSnapshot;
 import oreexcavation.core.ExcavationSettings;
 import oreexcavation.core.OreExcavation;
 import oreexcavation.groups.BlockEntry;
@@ -133,37 +131,18 @@ public class MiningAgent {
                 continue;
             }
 
-            CompoundTag tileData = null;
-            if (ExcavationSettings.maxUndos > 0) {
-                level.captureBlockSnapshots = true;
-                level.capturedBlockSnapshots.clear();
-                BlockEntity be = level.getBlockEntity(pos);
-                if (be != null) tileData = BlockHistory.saveBlockEntity(be);
-            }
-
             if (!ExcavationSettings.ignoreTools && !ToolEffectiveCheck.canHarvestBlock(level, current, pos, player)) {
-                level.captureBlockSnapshots = false;
                 checkedBlocks.add(pos);
                 continue;
             }
 
+            // Remember the block (and its contents) so /undo_excavation can put it back
+            BlockHistory record = ExcavationSettings.maxUndos > 0 ? history.recordPosition(level, pos) : null;
+
             if (!player.gameMode.destroyBlock(pos) && !level.getBlockState(pos).isAir()) {
                 OreExcavation.logger.warn("Block harvest failed unexpectedly.\nBlock: " + current + "\nTool: " + held + "\nPos: " + pos);
             } else {
-                if (ExcavationSettings.maxUndos > 0) {
-                    level.captureBlockSnapshots = false;
-                    while (!level.capturedBlockSnapshots.isEmpty()) {
-                        BlockSnapshot snap = level.capturedBlockSnapshots.get(0);
-                        if (pos.equals(snap.getPos())) {
-                            history.addRecordedBlock(new BlockHistory(snap, tileData));
-                        } else {
-                            history.addRecordedBlock(new BlockHistory(snap));
-                        }
-                        level.capturedBlockSnapshots.remove(0);
-                        level.markAndNotifyBlock(snap.getPos(), level.getChunkAt(snap.getPos()),
-                                snap.getReplacedBlock(), snap.getCurrentBlock(), snap.getFlag(), 512);
-                    }
-                }
+                if (record != null) history.addRecordedBlock(record);
                 if (!player.isCreative()) {
                     player.getFoodData().addExhaustion(toolProps.getExhaustion());
                     if (toolProps.getExperience() > 0) {
@@ -173,8 +152,6 @@ public class MiningAgent {
                 appendSurrounding(pos);
                 minedBlocks.add(pos);
             }
-            level.capturedBlockSnapshots.clear();
-            level.captureBlockSnapshots = false;
             checkedBlocks.add(pos);
         }
 
